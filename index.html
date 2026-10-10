@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#211a14">
+<title>Ký Ức Sài Gòn Xưa — Bảo tàng số</title>
+
+<style>
+:root {
+  --bg:#f4ecdc;
+  --paper:#fffaf0;
+  --ink:#2c2118;
+  --brown:#583b27;
+  --gold:#c69a51;
+  --muted:#82705d;
+  --line:#dfd0b7;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth;scroll-padding-top:80px}
+body {
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:Arial,"Segoe UI",sans-serif;line-height:1.65;
+}
+button,a,summary {touch-action:manipulation}
+a {color:inherit}
+button {font:inherit}
+button:focus-visible,a:focus-visible,summary:focus-visible {
+  outline:3px solid #e3ad51;outline-offset:3px
+}
+header {
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:13px 5%;
+  background:#211a14f5;color:#fff8e9;
+  border-bottom:1px solid #ffffff20;
+}
+.brand {font-weight:800;letter-spacing:1px;color:#e8c486}
+nav {display:flex;gap:17px;flex-wrap:wrap}
+nav a {font-size:13px;text-decoration:none}
+nav a:hover {color:#e8c486}
+.hero {
+  min-height:510px;display:grid;place-items:center;text-align:center;
+  color:#fff9ec;padding:75px 6%;
+  background:
+    linear-gradient(120deg,#211a14ed,#48301dc7),
+    url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1600&q=80")
+    center/cover;
+}
+.hero-inner {max-width:850px}
+.eyebrow {font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#d7b477}
+h1,h2,h3 {font-family:Georgia,"Times New Roman",serif}
+h1 {font-size:clamp(42px,7vw,76px);line-height:1.05;margin:20px 0}
+.hero p {font-size:18px;max-width:700px;margin:0 auto 25px}
+.btn {
+  border:1px solid var(--gold);border-radius:5px;
+  background:var(--gold);color:#21180f;
+  padding:11px 17px;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  text-decoration:none;margin:4px;
+}
+.btn:hover {filter:brightness(1.08)}
+.btn.outline {background:transparent;color:inherit}
+.btn.dark {background:var(--brown);color:white;border-color:var(--brown)}
+.btn:disabled {opacity:.5;cursor:not-allowed}
+.section {padding:64px 6%}
+.section-head {max-width:760px;margin:0 auto 30px;text-align:center}
+.section-head h2 {font-size:clamp(29px,4vw,43px);color:var(--brown);margin:6px 0}
+.section-head p {color:var(--muted)}
+.kicker {font-size:12px;font-weight:bold;letter-spacing:3px;color:#98703b}
+.intro {background:var(--paper);text-align:center}
+.intro p {max-width:850px;margin:auto}
+.panel {
+  max-width:1180px;margin:auto;background:var(--paper);
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 10px 30px #35210d0c;
+}
+.panel-title {padding:19px 22px;border-bottom:1px solid var(--line)}
+.panel-title h3 {margin:0;color:var(--brown);font-size:23px}
+.panel-title p {margin:4px 0 0;color:var(--muted);font-size:13px}
+#museum3d {
+  display:block;width:100%;height:460px;background:#d7c4a2;
+  touch-action:pan-y;
+}
+.viewer-tools {
+  display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px;
+  border-top:1px solid var(--line);align-items:center;
+}
+.viewer-tools .hint {font-size:12px;color:var(--muted);margin-right:auto}
+#modelStatus {font-size:13px;color:#785b2d;padding:0 20px 12px}
+.two-col {
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr);
+  gap:24px;max-width:1180px;margin:auto;align-items:start;
+}
+.detail {padding:23px}
+.detail .big-icon {font-size:38px}
+.detail h3 {font-size:29px;color:var(--brown);margin:5px 0}
+.tag {
+  display:inline-block;padding:3px 10px;border-radius:30px;
+  background:#eee0c6;color:#745126;font-size:12px
+}
+.detail p {color:#665749}
+.detail-meta {font-size:13px;color:var(--muted)}
+.cards {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;max-width:1180px;margin:auto
+}
+.card {
+  border:1px solid var(--line);border-radius:9px;
+  background:var(--paper);overflow:hidden;
+}
+.card img {
+  width:100%;height:245px;object-fit:cover;display:block;
+  background:#e2d4bc
+}
+.card-body {padding:20px}
+.card h3 {font-size:25px;color:var(--brown);margin:5px 0}
+.card p {color:#6e5e4d}
+.card-actions {display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+.small {font-size:12px;color:var(--muted)}
+.status {font-size:13px;min-height:24px;color:#7b5a26}
+.map-layout {
+  max-width:1000px;margin:auto;
+  display:grid;grid-template-columns:1fr 260px;gap:20px
+}
+.map-board {
+  position:relative;min-height:350px;overflow:hidden;
+  border:1px solid var(--line);border-radius:12px;
+  background:#e9ddc5;
+  background-image:linear-gradient(30deg,#d8c9ad 1px,transparent 1px),
+  linear-gradient(120deg,#d8c9ad 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.map-road {
+  position:absolute;background:#fffaf0;border:1px solid #d4c3a7;
+  transform:rotate(-18deg);width:120%;height:32px;left:-10%;top:48%
+}
+.map-road.r2 {transform:rotate(32deg);top:32%;height:24px}
+.map-road.r3 {transform:rotate(90deg);width:90%;left:5%;top:40%;height:20px}
+.map-label {
+  position:absolute;font-size:11px;color:#765e42;
+  background:#fffaf0d9;padding:3px 7px;border-radius:3px
+}
+.map-pin {
+  position:absolute;z-index:2;transform:translate(-50%,-50%);
+  border:2px solid #fff;background:var(--brown);color:white;
+  width:47px;height:47px;border-radius:50%;cursor:pointer;
+  box-shadow:0 3px 10px #0002;font-size:19px
+}
+.map-pin[aria-pressed="true"] {background:var(--gold);color:#24190e;outline:3px solid #8c672d}
+.map-list {display:grid;gap:9px;align-content:start}
+.map-choice {
+  display:flex;gap:10px;align-items:center;text-align:left;
+  padding:12px;border:1px solid var(--line);border-radius:7px;
+  background:var(--paper);cursor:pointer;color:var(--ink)
+}
+.map-choice[aria-pressed="true"] {border-color:var(--gold);background:#f4e6c9}
+.video-wrap {
+  max-width:900px;margin:auto;background:#19130f;
+  border-radius:10px;overflow:hidden
+}
+video {width:100%;display:block;max-height:520px;background:#19130f}
+.video-note {padding:12px 18px;background:var(--paper);color:var(--muted);font-size:13px}
+.quote {
+  background:#34251b;color:#f7e8c9;text-align:center;
+  padding:55px 8%;font:italic clamp(23px,3.5vw,35px) Georgia,serif
+}
+.quote small {display:block;margin-top:20px;font:12px Arial,sans-serif;color:#d9bd87}
+footer {background:#211a14;color:#e2d2bb;text-align:center;padding:32px 6%;font-size:13px}
+footer a {color:#e8c486}
+[hidden] {display:none!important}
+@media(max-width:760px) {
+  header {align-items:flex-start;flex-direction:column}
+  nav {gap:12px}
+  .section {padding:45px 5%}
+  .two-col,.map-layout {grid-template-columns:1fr}
+  .cards {grid-template-columns:1fr}
+  #museum3d {height:360px}
+  .map-list {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card img {height:220px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+}
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+
+<body>
+<header>
+  <div class="brand">🏛 KÝ ỨC SÀI GÒN XƯA</div>
+  <nav aria-label="Điều hướng chính">
+    <a href="#gioi-thieu">Giới thiệu</a>
+    <a href="#khong-gian">Không gian 3D</a>
+    <a href="#bo-suu-tap">Hiện vật</a>
+    <a href="#ban-do">Bản đồ</a>
+    <a href="#video">Video</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Bảo tàng ký ức số</div>
+    <h1>KÝ ỨC<br>SÀI GÒN XƯA</h1>
+    <p>
+      Một hành trình trở về miền ký ức qua những tư liệu,
+      công trình và phương tiện từng gắn bó với thành phố.
+    </p>
+    <a class="btn" href="#khong-gian">Bắt đầu tham quan ↓</a>
+    <a class="btn outline" href="#bo-suu-tap">Khám phá hiện vật</a>
+  </div>
+</section>
+
+<section class="section intro" id="gioi-thieu">
+  <div class="section-head">
+    <div class="kicker">LỜI CHÀO TỪ QUÁ KHỨ</div>
+    <h2>Một thành phố, ngàn câu chuyện</h2>
+  </div>
+  <p>
+    Sài Gòn được ghi dấu không chỉ bằng những sự kiện lớn,
+    mà còn bằng bản đồ, khu chợ, kiến trúc và phương tiện
+    trong đời sống thường ngày. Bảo tàng số này là một
+    không gian giới thiệu, học tập và khám phá những lớp
+    ký ức ấy. Hình ảnh minh họa và mô hình 3D mẫu cần được
+    thay bằng tư liệu có nguồn xác thực khi sử dụng cho
+    nghiên cứu hoặc trưng bày chính thức.
+  </p>
+</section>
+
+<section class="section" id="khong-gian">
+  <div class="section-head">
+    <div class="kicker">KHÔNG GIAN TRỰC QUAN</div>
+    <h2>Tham quan bảo tàng 3D</h2>
+    <p>
+      Kéo để xoay góc nhìn, dùng con lăn hoặc hai ngón tay
+      để phóng to. Chọn một hiện vật để xem mô hình minh họa.
+    </p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">
+      <h3>Phòng trưng bày ký ức</h3>
+      <p>Không gian 3D dựng bằng hình khối mẫu, chưa phải bản quét hiện vật thật.</p>
+    </div>
+    <canvas id="museum3d" aria-label="Không gian bảo tàng 3D có thể xoay"></canvas>
+    <div class="viewer-tools">
+      <span class="hint">🖱️ Kéo để xoay · Cuộn để zoom · Chạm để chọn</span>
+      <button class="btn dark" id="autoRotate">⟳ Bật xoay tự động</button>
+      <button class="btn outline" id="resetView">↺ Góc nhìn ban đầu</button>
+    </div>
+    <div id="modelStatus" role="status">Đang chuẩn bị không gian 3D...</div>
+  </div>
+</section>
+
+<section class="section" id="bo-suu-tap">
+  <div class="section-head">
+    <div class="kicker">BỘ SƯU TẬP ĐẶC BIỆT</div>
+    <h2>Bốn dấu ấn Sài Gòn</h2>
+    <p>Chọn một hiện vật để đọc chú thích, nghe thuyết minh hoặc xem trong không gian 3D.</p>
+  </div>
+
+  <div class="cards" id="artifactCards"></div>
+</section>
+
+<section class="section" id="chi-tiet">
+  <div class="section-head">
+    <div class="kicker">HỒ SƠ HIỆN VẬT</div>
+    <h2 id="detailHeading">Câu chuyện hiện vật</h2>
+  </div>
+  <div class="panel">
+    <div class="two-col">
+      <div>
+        <img id="detailImage" src="" alt="" style="width:100%;height:100%;min-height:300px;max-height:500px;object-fit:cover;background:#dfcfb4">
+      </div>
+      <div class="detail">
+        <div class="big-icon" id="detailIcon">🗺️</div>
+        <span class="tag" id="detailTag">Tư liệu lịch sử</span>
+        <h3 id="detailTitle">Bản đồ Sài Gòn xưa</h3>
+        <p class="detail-meta" id="detailMeta"></p>
+        <p id="detailDescription"></p>
+        <p><b>Giá trị tham khảo</b></p>
+        <p id="detailValue"></p>
+        <button class="btn" id="detailListen">🔊 Nghe thuyết minh</button>
+        <button class="btn outline" id="detailStop">⏹ Dừng</button>
+        <div class="status" id="speechStatus" role="status" aria-live="polite"></div>
+        <p class="small">
+          Giọng đọc tổng hợp tùy thuộc trình duyệt và thiết bị.
+          Đây không phải bản thu âm của phát thanh viên.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ban-do">
+  <div class="section-head">
+    <div class="kicker">SƠ ĐỒ THAM QUAN</div>
+    <h2>Bản đồ bảo tàng tương tác</h2>
+    <p>Chọn một vị trí trên sơ đồ hoặc danh sách để mở hồ sơ hiện vật.</p>
+  </div>
+
+  <div class="map-layout">
+    <div class="map-board" role="group" aria-label="Sơ đồ các khu trưng bày">
+      <div class="map-road"></div>
+      <div class="map-road r2"></div>
+      <div class="map-road r3"></div>
+      <span class="map-label" style="top:8%;left:8%">LỐI VÀO</span>
+      <span class="map-label" style="bottom:8%;right:6%">KHÔNG GIAN KÝ ỨC</span>
+      <button class="map-pin" style="left:23%;top:28%" data-map="0" aria-label="Khu 1: Bản đồ" aria-pressed="true">🗺️</button>
+      <button class="map-pin" style="left:73%;top:25%" data-map="1" aria-label="Khu 2: Chợ Bến Thành" aria-pressed="false">🏮</button>
+      <button class="map-pin" style="left:28%;top:72%" data-map="2" aria-label="Khu 3: Nhà hát" aria-pressed="false">🎭</button>
+      <button class="map-pin" style="left:74%;top:72%" data-map="3" aria-label="Khu 4: Xe lam" aria-pressed="false">🛺</button>
+    </div>
+    <div class="map-list" id="mapList"></div>
+  </div>
+  <p class="small" style="text-align:center;margin-top:15px">
+    Đây là sơ đồ khu trưng bày minh họa, không phải bản đồ địa lý hay sơ đồ kiến trúc của một bảo tàng có thật.
+  </p>
+</section>
+
+<section class="section" id="video">
+  <div class="section-head">
+    <div class="kicker">CHUYỆN KỂ BẰNG HÌNH ẢNH</div>
+    <h2>Video giới thiệu</h2>
+    <p>Thay tệp video mẫu bằng phim tư liệu hoặc video giới thiệu do bạn sở hữu hay được phép sử dụng.</p>
+  </div>
+  <div class="video-wrap">
+    <video id="introVideo" controls playsinline preload="metadata"
+      poster="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1200&q=80">
+      <source src="assets/gioi-thieu.mp4" type="video/mp4">
+      Trình duyệt của bạn không hỗ trợ video HTML5.
+    </video>
+    <div class="video-note" id="videoStatus" role="status">
+      Chưa có video riêng: thêm tệp assets/gioi-thieu.mp4 để phát video.
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  “Giữ gìn ký ức là gìn giữ những câu chuyện giúp ta hiểu
+  nơi mình bắt đầu và trân trọng con đường phía trước.”
+  <small>KÝ ỨC SÀI GÒN XƯA · HỌC TỪ QUÁ KHỨ, GÌN GIỮ HÔM NAY</small>
+</section>
+</main>
+
+<footer>
+  <strong>🏛 KÝ ỨC SÀI GÒN XƯA</strong>
+  <p>Không gian học tập và khám phá lịch sử bằng công nghệ số.</p>
+  <p>Ảnh, mô hình và tư liệu lịch sử cần được ghi nguồn đầy đủ.</p>
+</footer>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+/*
+  HÌNH ẢNH:
+  URL bên dưới là ảnh minh họa trực tuyến, không cam kết
+  rằng ảnh đó mô tả chính xác hiện vật được đặt tên.
+  Hãy thay bằng ảnh tư liệu có nguồn đáng tin cậy.
+*/
+
+const artifacts = [
+{
+  id:0, icon:"🗺️", title:"Bản đồ Sài Gòn xưa",
+  tag:"Tư liệu lịch sử",
+  date:"Niên đại cần đối chiếu theo bản đồ cụ thể",
+  image:"https://images.unsplash.com/photo-1524666041070-9f876e6b2b9b?auto=format&fit=crop&w=1000&q=85",
+  alt:"Ảnh minh họa bản đồ và tư liệu địa lý",
+  short:"Tư liệu giúp tìm hiểu diện mạo đô thị và những thay đổi của thành phố qua thời gian.",
+  description:"Bản đồ lịch sử có thể ghi lại đường phố, sông rạch, bến cảng, khu dân cư và cách tổ chức không gian đô thị ở một thời điểm nhất định.",
+  value:"Khi được đối chiếu với niên đại, chú giải và nguồn lưu trữ, bản đồ giúp nghiên cứu sự biến đổi của đô thị. Hình ảnh đang dùng chỉ là minh họa, không phải bản đồ lịch sử đã xác thực.",
+  speech:`Kính chào quý khách. Chúng ta bắt đầu hành trình với bản đồ Sài Gòn xưa.
+
+Bản đồ là một loại tư liệu đặc biệt. Những đường nét, ký hiệu và tên địa danh có thể giúp chúng ta hình dung thành phố trong một thời điểm của lịch sử.
+
+Một con đường, một dòng sông hay một khu dân cư trên bản đồ đều có thể gợi mở câu chuyện về giao thương, sinh hoạt và quá trình phát triển đô thị.
+
+Khi so sánh bản đồ qua nhiều thời kỳ, chúng ta có thể tìm hiểu những khu vực đã thay đổi, những tuyến giao thông được hình thành và cách thành phố mở rộng theo thời gian.
+
+Tuy nhiên, để xác định chính xác niên đại và địa danh, cần kiểm tra chú giải và nguồn lưu trữ của từng bản đồ cụ thể.
+
+Xin mời quý khách quan sát những đường nét nhỏ. Đôi khi, chính những chi tiết tưởng chừng bình thường lại mở ra một câu chuyện lớn về Sài Gòn.`
+},
+{
+  id:1, icon:"🏮", title:"Chợ Bến Thành",
+  tag:"Đời sống đô thị",
+  date:"Công trình chợ hiện nay khánh thành năm 1914",
+  image:"https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=1000&q=85",
+  alt:"Ảnh minh họa không gian chợ truyền thống",
+  short:"Hình ảnh gắn với hoạt động thương mại, gặp gỡ và nhịp sống của thành phố.",
+  description:"Chợ Bến Thành là một địa danh nổi tiếng của Thành phố Hồ Chí Minh, gắn với hoạt động mua bán và hình ảnh đô thị trung tâm.",
+  value:"Câu chuyện về chợ giúp tìm hiểu thương mại và đời sống thường nhật. Ảnh trên chỉ là hình minh họa chợ truyền thống, không nhất thiết là ảnh Chợ Bến Thành.",
+  speech:`Kính thưa quý khách, tiếp theo là câu chuyện về Chợ Bến Thành, một địa danh nổi tiếng của Thành phố Hồ Chí Minh.
+
+Ngôi chợ gắn liền với hoạt động trao đổi hàng hóa và đời sống thường nhật của nhiều thế hệ người dân. Công trình chợ hiện nay được khánh thành vào năm 1914.
+
+Hãy hình dung một buổi sáng, khi các gian hàng mở cửa, người bán chuẩn bị hàng hóa và khách mua lựa chọn những món đồ quen thuộc. Tiếng trò chuyện, hoạt động mua bán và những cuộc gặp gỡ tạo nên nhịp sống riêng của khu chợ.
+
+Một khu chợ không chỉ là nơi giao dịch. Đó còn là không gian giao lưu văn hóa, nơi những câu chuyện gia đình và ký ức đời thường được tiếp nối.
+
+Theo thời gian, cách mua bán và nhịp sống đô thị thay đổi, nhưng Chợ Bến Thành vẫn là một hình ảnh quen thuộc trong ký ức về thành phố.
+
+Xin mời quý khách nghĩ về những người lao động phía sau mỗi gian hàng. Chính họ góp phần làm nên sức sống của một khu chợ và của cả đô thị.`
+},
+{
+  id:2, icon:"🎭", title:"Nhà hát Thành phố",
+  tag:"Kiến trúc và nghệ thuật",
+  date:"Khánh thành năm 1900",
+  image:"https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=1000&q=85",
+  alt:"Ảnh minh họa công trình kiến trúc cổ điển",
+  short:"Công trình kiến trúc gắn với lịch sử biểu diễn và đời sống văn hóa đô thị.",
+  description:"Nhà hát Thành phố là công trình nổi bật ở khu vực trung tâm, mang phong cách kiến trúc châu Âu và gắn với đời sống nghệ thuật của thành phố.",
+  value:"Kiến trúc, tư liệu ảnh và lịch sử sử dụng công trình giúp tìm hiểu thẩm mỹ và văn hóa của từng giai đoạn. Ảnh minh họa hiện tại không được xác nhận là ảnh chính xác của nhà hát.",
+  speech:`Kính mời quý khách đến với câu chuyện về Nhà hát Thành phố.
+
+Công trình được khánh thành năm 1900, mang phong cách kiến trúc châu Âu và là một dấu ấn nổi bật trong không gian trung tâm Sài Gòn.
+
+Hãy chú ý đến bố cục, mặt tiền và những chi tiết trang trí. Kiến trúc không chỉ thể hiện thẩm mỹ của một thời kỳ mà còn phản ánh những biến đổi trong lịch sử đô thị.
+
+Một nhà hát là nơi nghệ sĩ gặp gỡ công chúng, nơi âm nhạc, sân khấu và cảm xúc được chia sẻ. Qua nhiều thế hệ, các không gian biểu diễn góp phần làm phong phú đời sống tinh thần của cộng đồng.
+
+Ngày nay, việc bảo tồn công trình lịch sử không chỉ là gìn giữ một tòa nhà. Đó còn là gìn giữ ký ức, giá trị kiến trúc và những câu chuyện văn hóa gắn liền với nơi ấy.
+
+Xin mời quý khách quan sát công trình và nghĩ về những lớp thời gian mà nó đã chứng kiến.`
+},
+{
+  id:3, icon:"🛺", title:"Xe lam Sài Gòn",
+  tag:"Giao thông và ký ức",
+  date:"Phương tiện gắn với một giai đoạn của thế kỷ 20",
+  image:"https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1000&q=85",
+  alt:"Ảnh minh họa phương tiện giao thông đường phố",
+  short:"Phương tiện gợi nhớ những chuyến đi thường ngày và nhịp sống đô thị xưa.",
+  description:"Xe lam từng là phương tiện vận chuyển hành khách quen thuộc tại nhiều đô thị miền Nam trong một giai đoạn của thế kỷ 20.",
+  value:"Tư liệu ảnh, lời kể và hiện vật xe giúp tìm hiểu giao thông và đời sống thường nhật. Ảnh minh họa này không phải ảnh xác thực của một chiếc xe lam lịch sử.",
+  speech:`Kính thưa quý khách, hiện vật cuối cùng đưa chúng ta trở về với câu chuyện về xe lam Sài Gòn.
+
+Trong một giai đoạn của thế kỷ hai mươi, xe lam là phương tiện vận chuyển hành khách quen thuộc tại nhiều đô thị miền Nam.
+
+Những chuyến xe phục vụ nhu cầu đi học, đi làm, đi chợ và thăm người thân. Đối với nhiều người, ký ức về xe lam gắn liền với những con phố, những cuộc gặp gỡ và nhịp sống thường ngày.
+
+Giao thông luôn thay đổi cùng sự phát triển của thành phố. Khi phương tiện mới xuất hiện, nhiều loại xe cũ dần ít hiện diện trên đường phố. Tuy vậy, ký ức về chúng vẫn được lưu giữ qua ảnh tư liệu, lời kể và các bộ sưu tập.
+
+Lịch sử không chỉ nằm trong những sự kiện lớn. Lịch sử còn nằm trong cách con người đi lại, làm việc và chăm sóc gia đình mỗi ngày.
+
+Xin cảm ơn quý khách đã cùng lắng nghe câu chuyện về một phương tiện gợi nhớ Sài Gòn xưa.`
+}
+];
+
+let selectedId = 0;
+let activeUtterance = null;
+let currentAudioId = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+/* TẠO THẺ HIỆN VẬT */
+$("artifactCards").innerHTML = artifacts.map(a => `
+  <article class="card">
+    <img src="${a.image}" alt="${esc(a.alt)}" loading="lazy">
+    <div class="card-body">
+      <div style="font-size:32px">${a.icon}</div>
+      <span class="tag">${esc(a.tag)}</span>
+      <h3>${esc(a.title)}</h3>
+      <p>${esc(a.short)}</p>
+      <div class="small">${esc(a.date)}</div>
+      <div class="card-actions">
+        <button class="btn dark" data-open="${a.id}">Xem hiện vật</button>
+        <button class="btn outline" data-speak="${a.id}">🔊 Nghe</button>
+      </div>
+      <div class="status" id="cardStatus${a.id}" aria-live="polite"></div>
+    </div>
+  </article>
+`).join("");
+
+/* BẢN ĐỒ THAM QUAN */
+$("mapList").innerHTML = artifacts.map(a => `
+  <button class="map-choice" data-map="${a.id}" aria-pressed="${a.id===0}">
+    <span style="font-size:25px">${a.icon}</span>
+    <span><b>${esc(a.title)}</b><br><span class="small">Khu ${a.id+1}</span></span>
+  </button>
+`).join("");
+
+function selectArtifact(id, scrollToDetail=false) {
+  selectedId = Number(id);
+  const a = artifacts[selectedId];
+  if (!a) return;
+
+  $("detailHeading").textContent = "Hồ sơ hiện vật " + (selectedId+1);
+  $("detailIcon").textContent = a.icon;
+  $("detailTag").textContent = a.tag;
+  $("detailTitle").textContent = a.title;
+  $("detailMeta").textContent = a.date;
+  $("detailImage").src = a.image;
+  $("detailImage").alt = a.alt;
+  $("detailDescription").textContent = a.description;
+  $("detailValue").textContent = a.value;
+  $("speechStatus").textContent = "";
+
+  document.querySelectorAll("[data-map]").forEach(el => {
+    el.setAttribute("aria-pressed", Number(el.dataset.map) === selectedId);
+  });
+
+  if (typeof focusModel === "function") focusModel(selectedId);
+  if (scrollToDetail) $("chi-tiet").scrollIntoView({behavior:"smooth"});
+}
+
+document.addEventListener("click", e => {
+  const open = e.target.closest("[data-open]");
+  const speak = e.target.closest("[data-speak]");
+  const map = e.target.closest("[data-map]");
+  if (open) selectArtifact(open.dataset.open, true);
+  if (speak) {
+    selectArtifact(speak.dataset.speak, false);
+    playSpeech(Number(speak.dataset.speak));
+  }
+  if (map) {
+    selectArtifact(map.dataset.map, false);
+    $("chi-tiet").scrollIntoView({behavior:"smooth"});
+  }
+});
+
+/* THUYẾT MINH: GIỌNG ĐỌC CÓ SẴN TRONG TRÌNH DUYỆT */
+function updateSpeechStatus(message, id=currentAudioId) {
+  $("speechStatus").textContent = message;
+  for (const a of artifacts) {
+    const el = $("cardStatus"+a.id);
+    if (el) el.textContent = a.id === id ? message : "";
+  }
+}
+
+function playSpeech(id) {
+  if (!("speechSynthesis" in window)) {
+    updateSpeechStatus("Trình duyệt không hỗ trợ đọc văn bản. Bạn có thể đọc nội dung trên trang.", id);
+    return;
+  }
+
+  if (currentAudioId === id && speechSynthesis.speaking && !speechSynthesis.paused) {
+    speechSynthesis.pause();
+    updateSpeechStatus("Đang tạm dừng. Nhấn Nghe để tiếp tục.", id);
+    return;
+  }
+
+  if (currentAudioId === id && speechSynthesis.paused) {
+    speechSynthesis.resume();
+    updateSpeechStatus("Đang tiếp tục thuyết minh…", id);
+    return;
+  }
+
+  speechSynthesis.cancel();
+  currentAudioId = id;
+  const a = artifacts[id];
+  const utterance = new SpeechSynthesisUtterance(a.speech);
+  activeUtterance = utterance;
+  utterance.lang = "vi-VN";
+  utterance.rate = 0.88;
+  utterance.pitch = 0.96;
+  utterance.volume = 1;
+
+  const voices = speechSynthesis.getVoices();
+  const viVoice = voices.find(v => v.lang.toLowerCase().startsWith("vi"));
+  if (viVoice) utterance.voice = viVoice;
+
+  utterance.onstart = () => updateSpeechStatus("🎙 Đang thuyết minh: " + a.title, id);
+  utterance.onend = () => {
+    if (activeUtterance === utterance) {
+      updateSpeechStatus("✓ Đã kết thúc thuyết minh.", id);
+      activeUtterance = null;
+      currentAudioId = null;
+    }
+  };
+  utterance.onerror = () => {
+    updateSpeechStatus("Không phát được giọng đọc. Hãy kiểm tra trình duyệt hoặc giọng tiếng Việt của thiết bị.", id);
+    activeUtterance = null;
+    currentAudioId = null;
+  };
+  speechSynthesis.speak(utterance);
+}
+
+function stopSpeech() {
+  if ("speechSynthesis" in window) speechSynthesis.cancel();
+  activeUtterance = null;
+  currentAudioId = null;
+  updateSpeechStatus("Đã dừng thuyết minh.", selectedId);
+}
+$("detailListen").addEventListener("click", () => playSpeech(selectedId));
+$("detailStop").addEventListener("click", stopSpeech);
+
+/* VIDEO: BÁO RÕ NẾU CHƯA CÓ TỆP */
+$("introVideo").addEventListener("error", () => {
+  $("videoStatus").textContent =
+    "Không tìm thấy video. Hãy thêm tệp assets/gioi-thieu.mp4 hoặc sửa đường dẫn trong mã nguồn.";
+});
+$("introVideo").addEventListener("loadedmetadata", () => {
+  $("videoStatus").textContent = "Video đã được tải. Nhấn nút phát để xem.";
+});
+
+/* THREE.JS: DỰNG PHÒNG VÀ 4 MÔ HÌNH HÌNH KHỐI MINH HỌA */
+let scene, camera, renderer, controls, raycaster, pointer;
+let modelGroups = [];
+let focusModel = null;
+let autoRotate = false;
+const canvas = $("museum3d");
+
+try {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color("#d7c4a2");
+  scene.fog = new THREE.Fog("#d7c4a2", 16, 34);
+
+  camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(9, 7, 11);
+
+  renderer = new THREE.WebGLRenderer({
+    canvas, antialias:true, alpha:false
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.target.set(0, 1, 0);
+  controls.minDistance = 5;
+  controls.maxDistance = 20;
+  controls.maxPolarAngle = Math.PI * 0.49;
+
+  scene.add(new THREE.HemisphereLight(0xffedcf, 0x5b4430, 2.1));
+  const sun = new THREE.DirectionalLight(0xffe0a4, 3);
+  sun.position.set(5, 10, 6);
+  sun.castShadow = true;
+  scene.add(sun);
+
+  const roomMat = new THREE.MeshStandardMaterial({color:"#e9ddc5", roughness:0.9});
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(22,18), roomMat);
+  floor.rotation.x = -Math.PI/2;
+  floor.position.y = -0.04;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+  const wallMat = new THREE.MeshStandardMaterial({color:"#b89b72", roughness:1});
+  const backWall = new THREE.Mesh(new THREE.BoxGeometry(22,6,0.25),wallMat);
+  backWall.position.set(0,3,-8);
+  scene.add(backWall);
+  const sideWall = new THREE.Mesh(new THREE.BoxGeometry(0.25,6,16),wallMat);
+  sideWall.position.set(-11,3,0);
+  scene.add(sideWall);
+
+  // Kệ trưng bày
+  function box(parent, w,h,d, x,y,z, color, roughness=0.7) {
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(w,h,d),
+      new THREE.MeshStandardMaterial({color,roughness})
+    );
+    mesh.position.set(x,y,z);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    parent.add(mesh);
+    return mesh;
+  }
+
+  function cylinder(parent, rt, rb, h, x,y,z, color) {
+    const mesh = new THREE.Mesh(
+      new THREE.CylinderGeometry(rt,rb,h,24),
+      new THREE.MeshStandardMaterial({color,roughness:0.55})
+    );
+    mesh.position.set(x,y,z);
+    mesh.castShadow = true;
+    parent.add(mesh);
+    return mesh;
+  }
+
+  const positions = [
+    [-5,0,-3], [5,0,-3], [-5,0,3], [5,0,3]
+  ];
+
+  artifacts.forEach((a, id) => {
+    const group = new THREE.Group();
+    group.position.set(...positions[id]);
+    group.userData.artifactId = id;
+    scene.add(group);
+    modelGroups.push(group);
+
+    // Bệ
+    box(group,2.6,0.35,2.2,0,0.18,0,"#68482d");
+    box(group,2.45,0.12,2.05,0,0.42,0,"#c49a51");
+
+    if (id === 0) {
+      // Bản đồ cách điệu, không phải bản đồ lịch sử chính xác
+      box(group,1.45,0.08,1.15,0,1.02,0,"#a87d46");
+      box(group,1.30,0.025,1.00,0,1.075,0,"#e8d7ac");
+      for(let i=0;i<5;i++) {
+        box(group,0.018,0.01,0.86,-0.48+i*0.24,1.095,0,"#8b6540");
+      }
+      for(let i=0;i<4;i++) {
+        box(group,1.1,0.01,0.018,0,1.096,-0.34+i*0.22,"#8b6540");
+      }
+    } else if (id === 1) {
+      // Chợ cách điệu, không phải mô hình kiến trúc chính xác
+      box(group,1.55,0.9,1.1,0,1.02,0,"#c49a62");
+      const roof = new THREE.Mesh(
+        new THREE.ConeGeometry(1.12,0.75,4),
+        new THREE.MeshStandardMaterial({color:"#9a4c31",roughness:0.8})
+      );
+      roof.rotation.y=Math.PI/4;
+      roof.position.set(0,1.82,0);
+      roof.castShadow=true;
+      group.add(roof);
+      box(group,0.5,0.6,0.04,0,0.75,0.57,"#6a3f29");
+    } else if (id === 2) {
+      // Mặt tiền nhà hát cách điệu
+      box(group,1.7,1.15,0.55,0,1.12,0,"#e7d3a9");
+      box(group,1.85,0.12,0.68,0,1.76,0,"#8b5d36");
+      for(let i=0;i<4;i++) {
+        cylinder(group,0.075,0.075,0.82,-0.57+i*0.38,1.25,0.32,"#f3e4c4");
+      }
+      const roof = new THREE.Mesh(
+        new THREE.ConeGeometry(0.8,0.35,4),
+        new THREE.MeshStandardMaterial({color:"#9a713b"})
+      );
+      roof.rotation.y=Math.PI/4;
+      roof.position.y=1.98;
+      group.add(roof);
+    } else {
+      // Xe ba bánh cách điệu, không phải bản sao xe lam thật
+      box(group,1.35,0.48,0.65,0,0.95,0,"#397d71");
+      box(group,0.72,0.45,0.62,-0.13,1.39,0,"#6eb1a0");
+      box(group,0.78,0.08,0.68,-0.13,1.65,0,"#e3c078");
+      cylinder(group,0.23,0.23,0.12,-0.43,0.65,0.39,"#29241d");
+      cylinder(group,0.23,0.23,0.12,0.55,0.65,0.39,"#29241d");
+      cylinder(group,0.23,0.23,0.12,-0.43,0.65,-0.39,"#29241d");
+      cylinder(group,0.23,0.23,0.12,0.55,0.65,-0.39,"#29241d");
+    }
+
+    // Ánh sáng nhỏ đánh dấu từng bệ
+    const lamp = new THREE.PointLight(id===selectedId ? 0xffcf72 : 0xffe9be, 1.2, 4);
+    lamp.position.set(0,3,0);
+    group.add(lamp);
+    group.userData.lamp = lamp;
+  });
+
+  raycaster = new THREE.Raycaster();
+  pointer = new THREE.Vector2();
+
+  function resize() {
+    const w = Math.max(1, canvas.clientWidth);
+    const h = Math.max(1, canvas.clientHeight);
+    renderer.setSize(w,h,false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener("resize",resize);
+  resize();
+
+  canvas.addEventListener("pointerup", event => {
+    // Không coi cú kéo xoay dài là thao tác chọn mô hình
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = ((event.clientX-rect.left)/rect.width)*2-1;
+    pointer.y = -((event.clientY-rect.top)/rect.height)*2+1;
+    raycaster.setFromCamera(pointer,camera);
+    const hits = raycaster.intersectObjects(modelGroups,true);
+    if (hits.length) {
+      let node = hits[0].object;
+      while(node && node.userData.artifactId === undefined) node=node.parent;
+      if (node) selectArtifact(node.userData.artifactId,false);
+    }
+  });
+
+  focusModel = id => {
+    modelGroups.forEach((g,i) => {
+      const selected = i === Number(id);
+      g.scale.setScalar(selected ? 1.12 : 1);
+      g.userData.lamp.intensity = selected ? 2.5 : 0.7;
+    });
+    const p = positions[Number(id)];
+    if (p) {
+      controls.target.set(p[0],1,p[2]);
+    }
+    $("modelStatus").textContent =
+      "Đang chọn: " + artifacts[Number(id)].title +
+      " — mô hình hình khối minh họa.";
+  };
+
+  $("autoRotate").addEventListener("click", () => {
+    autoRotate = !autoRotate;
+    controls.autoRotate = autoRotate;
+    $("autoRotate").textContent = autoRotate ? "⏸ Tắt xoay tự động" : "⟳ Bật xoay tự động";
+  });
+  $("resetView").addEventListener("click", () => {
+    controls.reset();
+    camera.position.set(9,7,11);
+    controls.target.set(0,1,0);
+    controls.update();
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene,camera);
+  }
+  animate();
+  focusModel(0);
+} catch (error) {
+  console.error("Không thể khởi tạo 3D:",error);
+  $("modelStatus").textContent =
+    "Không thể tải không gian 3D. Hãy kiểm tra kết nối Internet, WebGL và trình duyệt.";
+  $("autoRotate").disabled = true;
+  $("resetView").disabled = true;
+}
+
+selectArtifact(0,false);
+</script>
+</body>
+</html>
