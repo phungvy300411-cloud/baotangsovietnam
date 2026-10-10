@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#302219">
+  <meta name="description" content="Bảo tàng số Ký Ức Sài Gòn Xưa — khám phá di sản đô thị qua bốn hiện vật và không gian 3D.">
+  <title>Ký Ức Sài Gòn Xưa | Bảo tàng số</title>
+
+  <style>
+    :root {
+      --ink: #302219;
+      --brown: #563a28;
+      --gold: #c49b5c;
+      --cream: #f4ead7;
+      --paper: #e9dcc3;
+      --muted: #76644f;
+      --green: #344b3d;
+      --line: rgba(81, 55, 35, .22);
+      --shadow: 0 16px 45px rgba(43, 29, 19, .13);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at top left, #fff8e9 0%, transparent 50%),
+        var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    button { font: inherit; }
+
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px clamp(16px, 5vw, 72px);
+      background: rgba(48, 34, 25, .96);
+      color: #fff1d7;
+      border-bottom: 2px solid var(--gold);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+    }
+
+    .brand small {
+      display: block;
+      font-size: 10px;
+      color: #d8bd91;
+      letter-spacing: 3px;
+      font-weight: normal;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+    }
+
+    .nav a {
+      color: #f8e9d0;
+      text-decoration: none;
+    }
+
+    .nav a:hover { color: #e8c17c; }
+
+    .hero {
+      position: relative;
+      min-height: 540px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      color: #fff1d7;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(35, 24, 18, .84), rgba(53, 37, 24, .48)),
+        repeating-linear-gradient(90deg, #6c4b31 0 2px, #785738 2px 4px);
+    }
+
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(231, 195, 132, .42);
+      pointer-events: none;
+    }
+
+    .hero::before { inset: 20px; }
+    .hero::after { inset: 29px; }
+
+    .hero-inner { max-width: 850px; position: relative; z-index: 1; }
+
+    .eyebrow {
+      color: #e6c58d;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font: 12px Arial, sans-serif;
+    }
+
+    h1 {
+      margin: 15px 0;
+      font-size: clamp(38px, 7vw, 76px);
+      line-height: 1.08;
+      font-weight: normal;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 22px auto;
+      font-size: 18px;
+      color: #f1dfc1;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      min-height: 43px;
+      padding: 10px 17px;
+      border: 1px solid var(--gold);
+      background: var(--brown);
+      color: #fff3dc;
+      text-decoration: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: .2s ease;
+    }
+
+    .button:hover {
+      background: #755032;
+      transform: translateY(-1px);
+    }
+
+    .button.light {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--brown);
+    }
+
+    .button.light:hover { background: #e4d1ad; }
+
+    main { max-width: 1240px; margin: auto; padding: 0 22px; }
+
+    section { padding: 68px 0; }
+
+    .section-head {
+      max-width: 750px;
+      margin-bottom: 28px;
+    }
+
+    .section-head .eyebrow { color: #8a6334; }
+
+    h2 {
+      margin: 8px 0 12px;
+      font-size: clamp(29px, 4vw, 44px);
+      line-height: 1.2;
+      font-weight: normal;
+    }
+
+    .lead { color: var(--muted); font-size: 17px; }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .quote {
+      padding: 24px;
+      border-left: 4px solid var(--gold);
+      background: rgba(255,255,255,.36);
+      font-size: 19px;
+      font-style: italic;
+    }
+
+    .heritage-panel {
+      min-height: 240px;
+      padding: 26px;
+      color: #f7e7c9;
+      background:
+        linear-gradient(rgba(48,34,25,.84), rgba(48,34,25,.9)),
+        repeating-linear-gradient(45deg, #795b3c 0 5px, #60452e 5px 10px);
+      border: 7px double var(--gold);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .heritage-panel strong { font-size: 28px; font-weight: normal; }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .artifact-card {
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 239, .68);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .artifact-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #d7c6a7;
+    }
+
+    .artifact-content { padding: 18px; flex: 1; }
+
+    .artifact-icon { font-size: 27px; }
+
+    .artifact-card h3 { margin: 6px 0; font-size: 22px; font-weight: normal; }
+
+    .artifact-card p { color: var(--muted); font-size: 14px; }
+
+    .artifact-card .button { width: 100%; margin-top: 12px; }
+
+    .museum {
+      margin: 0 calc(clamp(0px, (1240px - 100vw) / 2, 0px));
+      padding: clamp(18px, 4vw, 40px);
+      background: #302219;
+      color: #f7e8cc;
+    }
+
+    .museum .section-head .eyebrow { color: #d4ae70; }
+    .museum .lead { color: #d6c3a6; }
+
+    .viewer-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.65fr) minmax(260px, .75fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .viewer-shell {
+      min-width: 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #9e7947;
+      background: #b9a17c;
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+    }
+
+    #museum3d {
+      display: block;
+      width: 100%;
+      height: 530px;
+      touch-action: pan-y;
+    }
+
+    .viewer-label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      padding: 7px 10px;
+      color: #fff2d9;
+      background: rgba(38, 26, 18, .82);
+      font: 12px Arial, sans-serif;
+      max-width: calc(100% - 24px);
+    }
+
+    .viewer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      background: #241911;
+      border-top: 1px solid #735431;
+    }
+
+    .viewer-actions .button {
+      font: 13px Arial, sans-serif;
+      padding: 8px 12px;
+      min-height: 37px;
+    }
+
+    .viewer-side {
+      padding: 22px;
+      background: #453022;
+      border: 1px solid #82643f;
+    }
+
+    .viewer-side h3 {
+      margin: 4px 0 12px;
+      font-size: 27px;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+
+    .viewer-side p { color: #e1ceb0; font-size: 15px; }
+
+    .model-status {
+      margin: 16px 0;
+      padding: 10px;
+      border-left: 3px solid var(--gold);
+      background: rgba(0,0,0,.16);
+      color: #f1d7a5;
+      font: 12px/1.6 Arial, sans-serif;
+      overflow-wrap: anywhere;
+    }
+
+    .artifact-selector {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .selector-button {
+      text-align: left;
+      padding: 12px;
+      color: #f4e3c5;
+      border: 1px solid #7d6040;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .selector-button.active, .selector-button:hover {
+      background: #6a4b2f;
+      border-color: #d5b06e;
+    }
+
+    .tips {
+      margin-top: 16px;
+      color: #d6c3a6;
+      font: 12px/1.6 Arial, sans-serif;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .story {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 239, .55);
+    }
+
+    .story h3 { font-size: 23px; font-weight: normal; margin: 5px 0; }
+
+    .story p { color: var(--muted); }
+
+    .audio-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+    audio { width: 100%; margin-top: 10px; }
+
+    .footer {
+      padding: 34px 20px;
+      text-align: center;
+      background: #302219;
+      color: #e8d5b6;
+      border-top: 3px solid var(--gold);
+    }
+
+    .footer small { color: #c5ae8c; }
+
+    @media (max-width: 900px) {
+      .artifact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .viewer-layout { grid-template-columns: 1fr; }
+      .viewer-side { order: -1; }
+      #museum3d { height: 430px; }
+      .intro-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      .topbar { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .nav { gap: 12px; }
+      .hero { min-height: 440px; }
+      main { padding: 0 15px; }
+      section { padding: 48px 0; }
+      .artifact-grid, .story-grid { grid-template-columns: 1fr; }
+      #museum3d { height: 360px; }
+      .museum { padding: 20px 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+
+  <!-- Import map để tải Three.js và các tiện ích 3D -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="#dau-trang" style="text-decoration:none">
+      KÝ ỨC SÀI GÒN XƯA
+      <small>BẢO TÀNG SỐ · DI SẢN ĐÔ THỊ</small>
+    </a>
+    <nav class="nav" aria-label="Điều hướng chính">
+      <a href="#gioi-thieu">Giới thiệu</a>
+      <a href="#hien-vat">Hiện vật</a>
+      <a href="#tham-quan">Tham quan 3D</a>
+      <a href="#thuyet-minh">Thuyết minh</a>
+    </nav>
+  </header>
+
+  <header class="hero" id="dau-trang">
+    <div class="hero-inner">
+      <div class="eyebrow">Một hành trình về miền ký ức</div>
+      <h1>Ký Ức Sài Gòn Xưa</h1>
+      <p>
+        Chạm vào những dấu tích của một đô thị — nơi kiến trúc, nhịp chợ
+        và những chuyến xe cũ kể lại câu chuyện về con người Sài Gòn.
+      </p>
+      <a class="button" href="#tham-quan">✦ Bước vào bảo tàng</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="gioi-thieu">
+      <div class="section-head">
+        <div class="eyebrow">Lời mở đầu</div>
+        <h2>Thành phố được lưu giữ trong ký ức</h2>
+        <p class="lead">
+          Bảo tàng số là không gian khám phá những hình ảnh và biểu tượng
+          gắn với diện mạo Sài Gòn qua các thời kỳ.
+        </p>
+      </div>
+
+      <div class="intro-grid">
+        <div>
+          <p>
+            Mỗi con đường, mái nhà và chuyến xe đều mang theo dấu vết của
+            một thời đã qua. Những hiện vật được giới thiệu ở đây không chỉ
+            giúp ta hình dung diện mạo đô thị, mà còn gợi nhắc nhịp sống,
+            ký ức cộng đồng và sự đổi thay của thành phố.
+          </p>
+          <div class="quote">
+            “Giữ gìn ký ức không phải để đứng yên trong quá khứ,
+            mà để hiểu rõ hơn con đường thành phố đã đi qua.”
+          </div>
+        </div>
+        <div class="heritage-panel">
+          <div class="eyebrow">Không gian trưng bày</div>
+          <strong>Đông Dương · Hoài niệm · Di sản</strong>
+          <p>
+            Tông màu vàng kem, gỗ trầm, hoa văn cổ điển và ánh sáng ấm
+            tạo nên bầu không khí của một phòng triển lãm hoài cổ.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="hien-vat">
+      <div class="section-head">
+        <div class="eyebrow">Bộ sưu tập</div>
+        <h2>Bốn lát cắt của Sài Gòn</h2>
+        <p class="lead">
+          Chọn một hiện vật để đọc giới thiệu hoặc chuyển đến khu vực
+          trưng bày 3D.
+        </p>
+      </div>
+
+      <div class="artifact-grid" id="artifactCards"></div>
+    </section>
+
+    <section id="tham-quan" class="museum">
+      <div class="section-head">
+        <div class="eyebrow">Phòng trưng bày trực tuyến</div>
+        <h2>Quan sát hiện vật từ mọi góc nhìn</h2>
+        <p class="lead">
+          Kéo chuột hoặc vuốt trên màn hình để xoay quanh hiện vật.
+          Dùng con lăn hoặc thao tác chụm hai ngón tay để phóng to, thu nhỏ.
+        </p>
+      </div>
+
+      <div class="viewer-layout">
+        <div class="viewer-shell">
+          <div class="viewer-label" id="viewerLabel">ĐANG TRƯNG BÀY · BẢN ĐỒ SÀI GÒN</div>
+          <canvas id="museum3d" aria-label="Khung xem mô hình 3D tương tác"></canvas>
+          <div class="viewer-actions">
+            <button class="button" id="resetView" type="button">⟳ Góc nhìn ban đầu</button>
+            <button class="button" id="autoRotate" type="button">▶ Xoay tự động</button>
+            <button class="button" id="zoomIn" type="button">＋ Phóng to</button>
+            <button class="button" id="zoomOut" type="button">－ Thu nhỏ</button>
+          </div>
+        </div>
+
+        <aside class="viewer-side">
+          <div class="eyebrow">Hiện vật đang xem</div>
+          <h3 id="selectedTitle">Bản đồ Sài Gòn</h3>
+          <p id="selectedDescription">
+            Quan sát hiện vật trong không gian trưng bày và xoay quanh để
+            khám phá hình dáng, bề mặt và các chi tiết.
+          </p>
+
+          <div class="model-status" id="modelStatus" role="status" aria-live="polite">
+            Đang khởi tạo không gian 3D…
+          </div>
+
+          <div class="artifact-selector" id="artifactSelector" aria-label="Chọn hiện vật"></div>
+
+          <button class="button" id="narrateCurrent" type="button">🔊 Nghe thuyết minh</button>
+          <button class="button light" id="stopNarration" type="button" style="margin-top:8px">■ Dừng thuyết minh</button>
+
+          <p class="tips">
+            Mẹo: Trên điện thoại, dùng một ngón tay để xoay và hai ngón tay
+            để thu phóng. Mô hình chi tiết chỉ xuất hiện khi tệp GLB tương ứng
+            được thêm vào thư mục models.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="thuyet-minh">
+      <div class="section-head">
+        <div class="eyebrow">Lắng nghe câu chuyện</div>
+        <h2>Thuyết minh bốn hiện vật</h2>
+        <p class="lead">
+          Mỗi câu chuyện là lời mời tìm hiểu thêm về lịch sử và đời sống
+          đô thị. Nội dung mang tính giới thiệu khái quát, không thay thế
+          hồ sơ kiểm chứng của từng hiện vật cụ thể.
+        </p>
+      </div>
+
+      <div class="story-grid" id="storyGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>✦ KÝ ỨC SÀI GÒN XƯA ✦</div>
+    <p>Không gian học tập và khám phá di sản đô thị qua nền tảng số.</p>
+    <small>Thiết kế phục vụ mục đích giáo dục. Hãy bổ sung nguồn tư liệu và ghi công hình ảnh khi sử dụng.</small>
+  </footer>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+    /*
+      QUAN TRỌNG:
+      - Ảnh được đọc từ assets/images/.
+      - GLB được đọc từ assets/models/.
+      - MP3 được đọc từ assets/audio/.
+      - Nếu GLB chưa tồn tại, chương trình tạo mô hình dự phòng.
+      - Không dùng đường dẫn tuyệt đối bắt đầu bằng "/" để tương thích
+        với GitHub Pages khi website được triển khai dưới tên repository.
+    */
+
+    const artifacts = [
+      {
+        id: "map",
+        icon: "🗺️",
+        title: "Bản đồ Sài Gòn",
+        subtitle: "Dấu ấn quy hoạch đô thị",
+        image: "assets/images/ban-do-sai-gon.jpg",
+        model: "assets/models/ban-do-sai-gon.glb",
+        audio: "assets/audio/ban-do-sai-gon.mp3",
+        description:
+          "Bản đồ là tư liệu giúp người xem hình dung sự phát triển của đường phố, khu dân cư và các không gian công cộng qua từng giai đoạn.",
+        narration:
+          "Kính mời quý khách dừng lại trước tấm bản đồ Sài Gòn. Bản đồ không chỉ là những đường nét trên giấy. Nó là một cách kể chuyện về thành phố: những tuyến đường hình thành, các khu dân cư mở rộng, những công trình công cộng xuất hiện và mối liên hệ giữa con người với không gian sống. Khi quan sát một bản đồ lịch sử, ta nên chú ý đến thời điểm lập bản đồ, chú giải, tỷ lệ và tên gọi địa danh. Những chi tiết ấy giúp chúng ta hiểu rằng diện mạo đô thị luôn vận động. Mỗi đường nét đều có thể mở ra một câu hỏi về cách thành phố được tổ chức và cách đời sống cộng đồng thay đổi theo thời gian."
+      },
+      {
+        id: "market",
+        icon: "🏮",
+        title: "Chợ Bến Thành",
+        subtitle: "Nhịp sống và giao thương",
+        image: "assets/images/cho-ben-thanh.jpg",
+        model: "assets/models/cho-ben-thanh.glb",
+        audio: "assets/audio/cho-ben-thanh.mp3",
+        description:
+          "Chợ Bến Thành là biểu tượng quen thuộc của thành phố, gắn với hoạt động mua bán, gặp gỡ và ký ức của nhiều thế hệ.",
+        narration:
+          "Thưa quý khách, Chợ Bến Thành từ lâu đã trở thành một hình ảnh tiêu biểu khi nhắc đến Sài Gòn. Chợ không đơn thuần là nơi trao đổi hàng hóa. Đây còn là không gian gặp gỡ của người dân, tiểu thương và du khách, nơi những món ăn, sản vật và tập quán sinh hoạt cùng hiện diện. Kiến trúc mặt chợ, mái nhà và chiếc đồng hồ ở mặt tiền đã góp phần tạo nên hình ảnh dễ nhận ra của công trình. Qua thời gian, chợ tiếp tục thích nghi với nhịp sống hiện đại, nhưng vẫn gợi nhắc một lớp ký ức về hoạt động giao thương và đời sống thường nhật của thành phố."
+      },
+      {
+        id: "theater",
+        icon: "🎭",
+        title: "Nhà hát Thành phố",
+        subtitle: "Nghệ thuật và kiến trúc",
+        image: "assets/images/nha-hat-thanh-pho.jpg",
+        model: "assets/models/nha-hat-thanh-pho.glb",
+        audio: "assets/audio/nha-hat-thanh-pho.mp3",
+        description:
+          "Nhà hát Thành phố là công trình văn hóa nổi bật, phản ánh một lớp kiến trúc lịch sử trong diện mạo trung tâm đô thị.",
+        narration:
+          "Kính mời quý khách hướng mắt đến Nhà hát Thành phố. Công trình gây ấn tượng bởi bố cục mặt tiền, các chi tiết trang trí và dáng vẻ trang trọng của kiến trúc nhà hát châu Âu đầu thế kỷ hai mươi. Trong lịch sử đô thị, nhà hát không chỉ là một tòa nhà mà còn là không gian dành cho biểu diễn, thưởng thức nghệ thuật và những cuộc gặp gỡ văn hóa. Qua nhiều giai đoạn, công trình đã trải qua những thay đổi về công năng và cách sử dụng. Khi nhìn ngắm kiến trúc, hãy chú ý đến nhịp cột, cửa vòm, đường nét trang trí và mối quan hệ giữa công trình với quảng trường, đường phố xung quanh."
+      },
+      {
+        id: "xe-lam",
+        icon: "🛺",
+        title: "Xe lam Sài Gòn",
+        subtitle: "Phương tiện của đời sống thường ngày",
+        image: "assets/images/xe-lam.jpg",
+        model: "assets/models/xe-lam.glb",
+        audio: "assets/audio/xe-lam.mp3",
+        description:
+          "Xe lam gợi nhớ một thời giao thông đô thị với những chuyến đi ngắn, tiếng động cơ và nhịp phố đông đúc.",
+        narration:
+          "Thưa quý khách, xe lam là một hình ảnh gắn với ký ức giao thông của nhiều đô thị miền Nam trong thế kỷ hai mươi. Với kích thước nhỏ gọn và khoang chở khách đặc trưng, loại xe này từng phục vụ nhu cầu đi lại hằng ngày của nhiều người. Xe lam đưa người dân qua các con phố, khu chợ và khu dân cư, góp phần tạo nên nhịp sống đường phố rất riêng. Khi tìm hiểu một chiếc xe lam, ta có thể quan sát cấu trúc thân xe, vị trí người lái, khoang hành khách, bánh xe và những dấu vết sử dụng. Những chi tiết ấy nhắc ta rằng lịch sử không chỉ nằm trong các công trình lớn, mà còn hiện diện trong những phương tiện bình dị của đời sống."
+      }
+    ];
+
+    const $ = (selector) => document.querySelector(selector);
+    const canvas = $("#museum3d");
+    const statusEl = $("#modelStatus");
+    let currentArtifact = artifacts[0];
+    let currentModel = null;
+    let loadToken = 0;
+    let autoRotateEnabled = false;
+
+    // Hiển thị thẻ hiện vật, ảnh cục bộ và nội dung thuyết minh.
+    function makeArtifactCard(item) {
+      const article = document.createElement("article");
+      article.className = "artifact-card";
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = item.title;
+      img.loading = "lazy";
+      img.onerror = () => {
+        img.style.display = "none";
+        const fallback = document.createElement("div");
+        fallback.style.cssText =
+          "padding:42px 12px;text-align:center;background:#d7c6a7;color:#563a28";
+        fallback.textContent = item.icon + " Ảnh chưa được thêm";
+        article.insertBefore(fallback, article.firstChild);
+      };
+
+      const content = document.createElement("div");
+      content.className = "artifact-content";
+
+      const icon = document.createElement("div");
+      icon.className = "artifact-icon";
+      icon.textContent = item.icon;
+
+      const title = document.createElement("h3");
+      title.textContent = item.title;
+
+      const desc = document.createElement("p");
+      desc.textContent = item.description;
+
+      const button = document.createElement("button");
+      button.className = "button light";
+      button.type = "button";
+      button.textContent = "Khám phá mô hình 3D";
+      button.addEventListener("click", () => selectArtifact(item.id, true));
+
+      content.append(icon, title, desc, button);
+      article.append(img, content);
+      return article;
+    }
+
+    function makeSelector(item) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "selector-button";
+      button.dataset.id = item.id;
+      button.textContent = `${item.icon}  ${item.title}`;
+      button.addEventListener("click", () => selectArtifact(item.id));
+      return button;
+    }
+
+    function makeStory(item) {
+      const article = document.createElement("article");
+      article.className = "story";
+
+      const icon = document.createElement("div");
+      icon.className = "artifact-icon";
+      icon.textContent = item.icon;
+
+      const title = document.createElement("h3");
+      title.textContent = item.title;
+
+      const desc = document.createElement("p");
+      desc.textContent = item.narration;
+
+      const audio = document.createElement("audio");
+      audio.controls = true;
+      audio.preload = "none";
+      audio.src = item.audio;
+      audio.setAttribute("aria-label", `Thuyết minh ${item.title}`);
+
+      audio.addEventListener("error", () => {
+        // Trình phát vẫn hiện; nếu chưa có MP3, nút đọc bằng giọng máy dùng được.
+      });
+
+      const row = document.createElement("div");
+      row.className = "audio-row";
+
+      const listen = document.createElement("button");
+      listen.className = "button";
+      listen.type = "button";
+      listen.textContent = "🔊 Đọc bằng giọng trình duyệt";
+      listen.addEventListener("click", () => {
+        selectArtifact(item.id, false);
+        speakNarration(item);
+      });
+
+      const view = document.createElement("button");
+      view.className = "button light";
+      view.type = "button";
+      view.textContent = "Xem mô hình";
+      view.addEventListener("click", () => selectArtifact(item.id, true));
+
+      row.append(listen, view);
+      article.append(icon, title, desc, audio, row);
+      return article;
+    }
+
+    artifacts.forEach(item => {
+      $("#artifactCards").appendChild(makeArtifactCard(item));
+      $("#artifactSelector").appendChild(makeSelector(item));
+      $("#storyGrid").appendChild(makeStory(item));
+    });
+
+    // Three.js: không gian triển lãm phong cách Đông Dương.
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#cbb693");
+    scene.fog = new THREE.Fog("#cbb693", 15, 29);
+
+    const camera = new THREE.PerspectiveCamera(
+      42, 1, 0.1, 100
+    );
+    camera.position.set(5.4, 4.1, 7.2);
+
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+        powerPreference: "high-performance"
+      });
+    } catch (error) {
+      statusEl.textContent =
+        "Thiết bị hoặc trình duyệt không hỗ trợ WebGL. Hãy thử trình duyệt mới hơn.";
+      throw error;
+    }
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.1;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 1.1, 0);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.enablePan = false;
+    controls.minDistance = 2.2;
+    controls.maxDistance = 12;
+    controls.minPolarAngle = 0.25;
+    controls.maxPolarAngle = Math.PI * 0.49;
+    controls.autoRotate = false;
+    controls.autoRotateSpeed = 1.2;
+    controls.update();
+
+    scene.add(new THREE.HemisphereLight("#fff1d4", "#66503a", 2.0));
+
+    const warmLight = new THREE.DirectionalLight("#ffe3b0", 3.2);
+    warmLight.position.set(4, 8, 5);
+    warmLight.castShadow = true;
+    warmLight.shadow.mapSize.set(1024, 1024);
+    warmLight.shadow.camera.left = -8;
+    warmLight.shadow.camera.right = 8;
+    warmLight.shadow.camera.top = 8;
+    warmLight.shadow.camera.bottom = -8;
+    scene.add(warmLight);
+
+    const fillLight = new THREE.PointLight("#f3cf91", 35, 18);
+    fillLight.position.set(-3, 3.7, 1);
+    scene.add(fillLight);
+
+    const wallMat = new THREE.MeshStandardMaterial({
+      color: "#d7bd8e", roughness: 0.92
+    });
+    const trimMat = new THREE.MeshStandardMaterial({
+      color: "#704b30", roughness: 0.78
+    });
+    const goldMat = new THREE.MeshStandardMaterial({
+      color: "#bd9658", metalness: 0.48, roughness: 0.42
+    });
+    const floorMat = new THREE.MeshStandardMaterial({
+      color: "#a88b63", roughness: 0.83
+    });
+    const darkWood = new THREE.MeshStandardMaterial({
+      color: "#503322", roughness: 0.5
+    });
+
+    function box(w, h, d, material, x, y, z, parent = scene) {
+      const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(w, h, d), material
+      );
+      mesh.position.set(x, y, z);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      parent.add(mesh);
+      return mesh;
+    }
+
+    // Sàn và tường phòng.
+    box(18, 0.22, 18, floorMat, 0, -0.12, 0);
+    box(18, 7, 0.25, wallMat, 0, 3.35, -5.2);
+    box(0.25, 7, 10.4, wallMat, -8.9, 3.35, 0);
+    box(0.25, 7, 10.4, wallMat, 8.9, 3.35, 0);
+
+    // Phào tường bằng gỗ nâu.
+    box(18, 0.18, 0.32, trimMat, 0, 0.55, -5.0);
+    box(18, 0.18, 0.32, trimMat, 0, 5.9, -5.0);
+    box(0.3, 0.18, 10.4, trimMat, -8.7, 0.55, 0);
+    box(0.3, 0.18, 10.4, trimMat, 8.7, 0.55, 0);
+
+    // Phào trang trí trên tường sau.
+    box(15.5, 0.07, 0.06, goldMat, 0, 5.55, -5.01);
+    box(15.5, 0.07, 0.06, goldMat, 0, 1.0, -5.01);
+
+    // Các ô trang trí hình chữ nhật gợi nhắc nội thất cổ.
+    for (let x = -6; x <= 6; x += 3) {
+      box(1.75, 2.5, 0.07, trimMat, x, 3.25, -5.0);
+      box(1.52, 2.22, 0.08, wallMat, x, 3.25, -4.94);
+      box(1.3, 0.045, 0.1, goldMat, x, 4.2, -4.86);
+    }
+
+    // Các đường gạch sàn kiểu gạch bông, dùng nét mảnh thay vì họa tiết ảnh.
+    const tileLineMat = new THREE.MeshStandardMaterial({
+      color: "#d3bd96", roughness: 0.95
+    });
+    for (let x = -8; x <= 8; x += 1) {
+      box(0.018, 0.012, 16.8, tileLineMat, x, 0.001, 0);
+    }
+    for (let z = -8; z <= 8; z += 1) {
+      box(16.8, 0.012, 0.018, tileLineMat, 0, 0.001, z);
+    }
+
+    // Đế trưng bày gỗ và bệ tròn.
+    const pedestal = new THREE.Group();
+    scene.add(pedestal);
+    box(2.5, 0.22, 2.5, darkWood, 0, 0.16, 0, pedestal);
+    box(2.25, 0.12, 2.25, goldMat, 0, 0.32, 0, pedestal);
+    box(1.9, 0.14, 1.9, darkWood, 0, 0.43, 0, pedestal);
+
+    const plinthTop = new THREE.Mesh(
+      new THREE.CylinderGeometry(1.05, 1.1, 0.16, 48),
+      new THREE.MeshStandardMaterial({
+        color: "#d2bd99", roughness: 0.45, metalness: 0.08
+      })
+    );
+    plinthTop.position.y = 0.58;
+    plinthTop.receiveShadow = true;
+    plinthTop.castShadow = true;
+    pedestal.add(plinthTop);
+
+    // Vòm trang trí trên tường sau, tạo bằng đường cong.
+    const archCurve = new THREE.EllipseCurve(
+      0, 0, 1.3, 1.2, Math.PI, 0, false, 0
+    );
+    const archPoints = archCurve.getPoints(40).map(
+      p => new THREE.Vector3(p.x, p.y + 2.2, 0)
+    );
+    const archGeometry = new THREE.BufferGeometry().setFromPoints(archPoints);
+    const arch = new THREE.Line(
+      archGeometry,
+      new THREE.LineBasicMaterial({ color: "#b48a4f" })
+    );
+    arch.position.set(0, 0, -4.82);
+    scene.add(arch);
+
+    // Tạo mô hình dự phòng khi chưa có GLB.
+    function makeFallback(id) {
+      const group = new THREE.Group();
+      const ivory = new THREE.MeshStandardMaterial({
+        color: "#e0d1b1", roughness: 0.78
+      });
+      const paper = new THREE.MeshStandardMaterial({
+        color: "#cbb58a", roughness: 0.95
+      });
+      const red = new THREE.MeshStandardMaterial({
+        color: "#9c4d35", roughness: 0.66
+      });
+      const black = new THREE.MeshStandardMaterial({
+        color: "#282522", roughness: 0.72
+      });
+      const glass = new THREE.MeshPhysicalMaterial({
+        color: "#d7c69f", roughness: 0.2, metalness: 0.08,
+        transparent: true, opacity: 0.23
+      });
+
+      function addBox(w, h, d, mat, x, y, z) {
+        return box(w, h, d, mat, x, y, z, group);
+      }
+
+      if (id === "map") {
+        // Bản đồ cuộn trên bàn trưng bày: chỉ là minh họa hình học.
+        addBox(1.8, 0.10, 1.35, darkWood, 0, 0.78, 0);
+        addBox(1.55, 0.045, 1.15, paper, 0, 0.86, 0);
+        for (let i = 0; i < 6; i++) {
+          const line = new THREE.Mesh(
+            new THREE.BoxGeometry(1.1, 0.008, 0.012), red
+          );
+          line.position.set(0, 0.89, -0.43 + i * 0.16);
+          group.add(line);
+        }
+        for (let i = 0; i < 5; i++) {
+          const line = new THREE.Mesh(
+            new THREE.BoxGeometry(0.012, 0.008, 0.85), ivory
+          );
+          line.position.set(-0.55 + i * 0.27, 0.895, 0);
+          group.add(line);
+        }
+        const cylinder = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.07, 0.07, 1.5, 24),
+          darkWood
+        );
+        cylinder.rotation.z = Math.PI / 2;
+        cylinder.position.set(0, 0.94, -0.57);
+        group.add(cylinder);
+      }
+
+      if (id === "market") {
+        // Khối kiến trúc chợ mang tính gợi ý, không phải bản sao chính xác.
+        addBox(1.7, 1.05, 1.15, ivory, 0, 1.18, 0);
+        addBox(1.86, 0.14, 1.3, red, 0, 1.77, 0);
+        addBox(1.2, 0.10, 0.95, ivory, 0, 1.88, 0);
+        addBox(0.12, 0.72, 0.12, red, -0.55, 1.28, 0.59);
+        addBox(0.12, 0.72, 0.12, red, 0, 1.28, 0.59);
+        addBox(0.12, 0.72, 0.12, red, 0.55, 1.28, 0.59);
+        addBox(0.95, 0.35, 0.12, darkWood, 0, 1.1, 0.66);
+        addBox(0.28, 0.32, 0.16, goldMat, 0, 1.45, 0.68);
+      }
+
+      if (id === "theater") {
+        // Mặt tiền nhà hát cách điệu, không đại diện cho mô hình khảo cổ chính xác.
+        addBox(1.85, 1.45, 0.52, ivory, 0, 1.23, 0);
+        addBox(2.0, 0.16, 0.65, goldMat, 0, 2.02, 0);
+        addBox(1.75, 0.12, 0.62, red, 0, 2.16, 0);
+        for (let x = -0.68; x <= 0.69; x += 0.34) {
+          addBox(0.07, 0.85, 0.12, goldMat, x, 1.35, 0.31);
+        }
+        addBox(0.38, 0.63, 0.10, red, 0, 1.0, 0.32);
+        addBox(0.08, 0.5, 0.10, goldMat, 0, 1.0, 0.39);
+        addBox(0.32, 0.08, 0.12, goldMat, 0, 1.25, 0.39);
+        addBox(0.32, 0.08, 0.12, goldMat, 0, 0.77, 0.39);
+      }
+
+      if (id === "xe-lam") {
+        // Xe ba bánh minh họa; mô hình thật cần GLB riêng.
+        addBox(1.65, 0.62, 0.85, red, 0, 1.03, 0);
+        addBox(0.95, 0.66, 0.75, ivory, -0.15, 1.54, -0.02);
+        addBox(0.8, 0.4, 0.05, glass, -0.15, 1.63, 0.38);
+        addBox(0.68, 0.09, 0.6, darkWood, 0.35, 1.25, -0.03);
+        addBox(0.25, 0.48, 0.12, black, 0.72, 1.35, 0.0);
+
+        for (const p of [
+          [-0.52, 0.57, 0.44],
+          [0.56, 0.57, 0.44],
+          [-0.52, 0.57, -0.44],
+          [0.56, 0.57, -0.44]
+        ]) {
+          const wheel = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.25, 0.25, 0.14, 28),
+            black
+          );
+          wheel.rotation.x = Math.PI / 2;
+          wheel.position.set(p[0], p[1], p[2]);
+          wheel.castShadow = true;
+          group.add(wheel);
+
+          const hub = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.09, 0.09, 0.15, 20),
+            goldMat
+          );
+          hub.rotation.x = Math.PI / 2;
+          hub.position.copy(wheel.position);
+          group.add(hub);
+        }
+      }
+
+      // Hộp kính gợi ý cho khu trưng bày.
+      if (id !== "xe-lam") {
+        const cover = new THREE.Mesh(
+          new THREE.BoxGeometry(2.15, 1.8, 2.15),
+          glass
+        );
+        cover.position.y = 1.6;
+        cover.castShadow = false;
+        cover.receiveShadow = true;
+        group.add(cover);
+
+        const frameMat = goldMat;
+        for (const x of [-1.08, 1.08]) {
+          for (const z of [-1.08, 1.08]) {
+            const post = new THREE.Mesh(
+              new THREE.BoxGeometry(0.035, 1.8, 0.035),
+              frameMat
+            );
+            post.position.set(x, 1.6, z);
+            group.add(post);
+          }
+        }
+      }
+
+      return group;
+    }
+
+    function disposeModel(root) {
+      root.traverse(obj => {
+        if (!obj.isMesh) return;
+        if (obj.geometry) obj.geometry.dispose();
+        if (Array.isArray(obj.material)) {
+          obj.material.forEach(m => m.dispose());
+        } else if (obj.material) {
+          obj.material.dispose();
+        }
+      });
+    }
+
+    function normalizeModel(root, id) {
+      const bounds = new THREE.Box3().setFromObject(root);
+      const size = bounds.getSize(new THREE.Vector3());
+      const center = bounds.getCenter(new THREE.Vector3());
+
+      const maxDimension = Math.max(size.x, size.y, size.z);
+      if (!Number.isFinite(maxDimension) || maxDimension <= 0) {
+        throw new Error("Mô hình không có kích thước hợp lệ.");
+      }
+
+      // Đưa mô hình về tỷ lệ thống nhất để hiển thị trong phòng.
+      const targetSize = id === "xe-lam" ? 2.7 : 2.1;
+      root.scale.multiplyScalar(targetSize / maxDimension);
+
+      const scaledBounds = new THREE.Box3().setFromObject(root);
+      const scaledCenter = scaledBounds.getCenter(new THREE.Vector3());
+
+      root.position.x -= scaledCenter.x;
+      root.position.z -= scaledCenter.z;
+      root.position.y -= scaledBounds.min.y;
+
+      root.traverse(obj => {
+        if (!obj.isMesh) return;
+        obj.castShadow = true;
+        obj.receiveShadow = true;
+        if (obj.material) {
+          const materials = Array.isArray(obj.material)
+            ? obj.material : [obj.material];
+          materials.forEach(mat => {
+            if ("envMapIntensity" in mat) mat.envMapIntensity = 0.8;
+            mat.needsUpdate = true;
+          });
+        }
+      });
+      return root;
+    }
+
+    function removeCurrentModel() {
+      if (!currentModel) return;
+      scene.remove(currentModel);
+      disposeModel(currentModel);
+      currentModel = null;
+    }
+
+    function loadArtifactModel(item) {
+      const token = ++loadToken;
+      removeCurrentModel();
+
+      // Đặt mô hình đúng trung tâm bệ.
+      pedestal.position.set(0, 0, 0);
+
+      statusEl.textContent = "Đang tải mô hình 3D…";
+      const loader = new GLTFLoader();
+
+      loader.load(
+        item.model,
+        (gltf) => {
+          if (token !== loadToken) {
+            disposeModel(gltf.scene);
+            return;
+          }
+
+          try {
+            const model = normalizeModel(gltf.scene, item.id);
+            model.position.y += 0.64;
+            currentModel = model;
+            scene.add(model);
+            statusEl.textContent =
+              "Đã tải mô hình GLB. Kéo để xoay, chụm hai ngón tay để thu phóng.";
+          } catch (error) {
+            console.error(error);
+            showFallback(item, token);
+          }
+        },
+        (progress) => {
+          if (token !== loadToken) return;
+          if (progress.total > 0) {
+            const percent = Math.round(progress.loaded / progress.total * 100);
+            statusEl.textContent = `Đang tải mô hình 3D… ${percent}%`;
+          }
+        },
+        (error) => {
+          console.info(`Không tải được ${item.model}; dùng mô hình dự phòng.`, error);
+          showFallback(item, token);
+        }
+      );
+    }
+
+    function showFallback(item, token) {
+      if (token !== loadToken) return;
+      removeCurrentModel();
+      currentModel = makeFallback(item.id);
+      currentModel.position.y = 0.64;
+      scene.add(currentModel);
+      statusEl.textContent =
+        `Chưa có GLB hợp lệ: ${item.model}. Đang hiển thị mô hình minh họa; hãy thêm tệp GLB thực tế để tăng độ chân thực.`;
+    }
+
+    function selectArtifact(id, scrollToViewer = false) {
+      const item = artifacts.find(a => a.id === id);
+      if (!item) return;
+
+      currentArtifact = item;
+      $("#viewerLabel").textContent =
+        `ĐANG TRƯNG BÀY · ${item.title.toLocaleUpperCase("vi-VN")}`;
+      $("#selectedTitle").textContent = item.title;
+      $("#selectedDescription").textContent = item.description;
+
+      document.querySelectorAll(".selector-button").forEach(button => {
+        const active = button.dataset.id === item.id;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+
+      controls.target.set(0, 1.1, 0);
+      camera.position.set(5.4, 4.1, 7.2);
+      controls.update();
+
+      loadArtifactModel(item);
+
+      if (scrollToViewer) {
+        $("#tham-quan").scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // Thuyết minh: ưu tiên MP3 cục bộ, nếu chưa có thì đọc bằng speechSynthesis.
+    let currentAudio = null;
+
+    function speakNarration(item) {
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      document.querySelectorAll("audio").forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+
+      const audioUrl = new URL(item.audio, window.location.href);
+      fetch(audioUrl, { method: "HEAD" })
+        .then(response => {
+          if (response.ok) {
+            if (!currentAudio) {
+              currentAudio = new Audio();
+            }
+            currentAudio.pause();
+            currentAudio.src = item.audio;
+            currentAudio.play().catch(() => useSpeechSynthesis(item));
+          } else {
+            useSpeechSynthesis(item);
+          }
+        })
+        .catch(() => useSpeechSynthesis(item));
+    }
+
+    function useSpeechSynthesis(item) {
+      if (!("speechSynthesis" in window)) {
+        statusEl.textContent =
+          "Thiết bị chưa hỗ trợ giọng đọc. Hãy bổ sung tệp MP3 trong assets/audio.";
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(item.narration);
+      utterance.lang = "vi-VN";
+      utterance.rate = 0.88;
+      utterance.pitch = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const vietnameseVoice = voices.find(v =>
+        v.lang && v.lang.toLowerCase().startsWith("vi")
+      );
+      if (vietnameseVoice) utterance.voice = vietnameseVoice;
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      statusEl.textContent =
+        "Đang đọc thuyết minh bằng giọng trình duyệt. Chất giọng tùy thiết bị.";
+    }
+
+    $("#narrateCurrent").addEventListener("click", () => {
+      speakNarration(currentArtifact);
+    });
+
+    $("#stopNarration").addEventListener("click", () => {
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+      document.querySelectorAll("audio").forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+      });
+      statusEl.textContent = "Đã dừng thuyết minh.";
+    });
+
+    $("#resetView").addEventListener("click", () => {
+      camera.position.set(5.4, 4.1, 7.2);
+      controls.target.set(0, 1.1, 0);
+      controls.update();
+    });
+
+    $("#autoRotate").addEventListener("click", () => {
+      autoRotateEnabled = !autoRotateEnabled;
+      controls.autoRotate = autoRotateEnabled;
+      $("#autoRotate").textContent = autoRotateEnabled
+        ? "Ⅱ Dừng xoay tự động" : "▶ Xoay tự động";
+    });
+
+    $("#zoomIn").addEventListener("click", () => {
+      controls.dollyIn(1.18);
+      controls.update();
+    });
+
+    $("#zoomOut").addEventListener("click", () => {
+      controls.dollyOut(1.18);
+      controls.update();
+    });
+
+    function resizeRenderer() {
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (!width || !height) return;
+
+      renderer.setSize(width, height, false);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    }
+
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(resizeRenderer).observe(canvas);
+    } else {
+      window.addEventListener("resize", resizeRenderer);
+    }
+
+    resizeRenderer();
+    selectArtifact("map");
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
